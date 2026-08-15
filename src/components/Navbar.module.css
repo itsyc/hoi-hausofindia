@@ -1,0 +1,315 @@
+.header {
+  background: var(--header-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent-cyan-glow) 50%, transparent 100%);
+  opacity: 0.6;
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 84px;
+}
+
+.logoText {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+.logoAccent {
+  color: var(--accent-cyan-light);
+  text-shadow: 0 0 15px var(--accent-cyan-glow);
+}
+
+.logoImage {
+  height: 104px;
+  width: auto;
+  max-width: 280px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logoImage:hover {
+  transform: scale(1.03);
+}
+
+.navLinks {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.link {
+  position: relative;
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 1.5px;
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+  padding: 6px 0;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--accent-cyan-light);
+  border-radius: 2px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 8px var(--accent-cyan-light);
+}
+
+.link:hover {
+  color: var(--text-primary);
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+.cartPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-pill);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-primary);
+  transition: var(--transition-fast);
+  backdrop-filter: blur(12px);
+}
+
+.cartPill:hover {
+  background: var(--accent-cyan-glow);
+  border-color: var(--accent-cyan-light);
+  box-shadow: 0 0 18px var(--accent-cyan-glow);
+  transform: translateY(-1px);
+}
+
+.cartBadge {
+  background: linear-gradient(135deg, #0284c7, #2563eb);
+  color: #fff;
+  font-size: 0.72rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+}
+
+.logoutBtn {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  transition: var(--transition-fast);
+}
+
+.logoutBtn:hover {
+  color: #ef4444;
+}
+
+.profileGroup {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  border-left: 1px solid var(--border-subtle);
+  padding-left: 1.2rem;
+  margin-left: 0.2rem;
+}
+
+/* Mobile Actions & Hamburger Toggle */
+.mobileActionGroup {
+  display: none;
+  align-items: center;
+  gap: 12px;
+}
+
+.cartPillMobile {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-pill);
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.hamburgerBtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-pill);
+  cursor: pointer;
+  padding: 8px;
+  gap: 5px;
+}
+
+.hamburgerBar {
+  width: 22px;
+  height: 2px;
+  background-color: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.bar1Open {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.bar2Open {
+  opacity: 0;
+}
+
+.bar3Open {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile Drawer Overlay */
+.mobileDrawerOverlay {
+  position: fixed;
+  top: 84px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.mobileDrawer {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-strong);
+  padding: 20px 24px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  max-height: calc(100vh - 84px);
+  overflow-y: auto;
+}
+
+.mobileLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.mobileLink:hover {
+  background: var(--accent-cyan-glow);
+  border-color: var(--accent-cyan-light);
+  color: var(--accent-cyan-light);
+}
+
+.mobileLogoutBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #ef4444;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.mobileAuthBox {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 992px) {
+  .logoImage {
+    height: 70px;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navContainer {
+    height: 70px;
+  }
+
+  .logoImage {
+    height: 52px;
+    max-width: 170px;
+  }
+
+  .logoText {
+    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .mobileActionGroup {
+    display: flex;
+  }
+
+  .mobileDrawerOverlay {
+    top: 70px;
+  }
+}

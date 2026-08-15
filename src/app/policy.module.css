@@ -1,0 +1,109 @@
+.policyContainer {
+  min-height: 80vh;
+  padding: 60px 24px 100px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.policyCard {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--glass-gradient);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 48px;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: var(--glass-shadow);
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent-cyan-light);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  margin-bottom: 28px;
+  transition: transform 0.2s ease;
+}
+
+.backBtn:hover {
+  transform: translateX(-4px);
+}
+
+.policyTitle {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.policySubtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 40px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 20px;
+}
+
+.policyContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  line-height: 1.7;
+}
+
+.sectionBlock {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 24px 28px;
+}
+
+.sectionTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent-cyan-light);
+  margin-bottom: 12px;
+}
+
+.sectionBody {
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.bulletList {
+  margin: 12px 0 0 0;
+  padding-left: 20px;
+  color: var(--text-secondary);
+}
+
+.bulletList li {
+  margin-bottom: 8px;
+}
+
+.contactBox {
+  margin-top: 12px;
+  padding: 14px 18px;
+  background: var(--accent-cyan-glow);
+  border: 1px solid var(--border-pill);
+  border-radius: 12px;
+  color: var(--accent-cyan-light);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .policyCard {
+    padding: 24px;
+  }
+  .policyTitle {
+    font-size: 1.8rem;
+  }
+}

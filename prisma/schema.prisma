@@ -1,0 +1,110 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x", "rhel-openssl-3.0.x", "linux-musl-openssl-3.0.x", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  phone     String?  @unique
+  email     String?  @unique
+  password  String?
+  role      String   @default("CUSTOMER") // "ADMIN" or "CUSTOMER"
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OtpToken {
+  id        String   @id @default(cuid())
+  phone     String
+  otp       String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  title       String
+  series      String   // "C-CLASS", "A-CLASS", "G-CLASS"
+  description String
+  features    String   // JSON string or comma separated
+  specs       String?  // JSON string for technical specifications
+  imageUrl    String?
+  published   Boolean  @default(false)
+  variants    Variant[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Variant {
+  id                String   @id @default(cuid())
+  productId         String
+  product           Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name              String   // e.g., "32 inch 512MB RAM"
+  sku               String?  // Stock Keeping Unit identifier (e.g. HOI-C-43-1GB)
+  barcode           String?  // EAN/UPC/Unit Barcode
+  stockQuantity     Int      @default(10)
+  lowStockThreshold Int      @default(5)
+  mrp               Float
+  discountPct       Float
+  price             Float
+  images            String?  // JSON string array of image URLs
+  specs             String?  // JSON string for variant-specific specifications
+  features          String?  // JSON string for variant-specific features/highlights
+  stockStatus       String   @default("In Stock") // "In Stock", "Low Stock", "Out of Stock"
+  isOnSale          Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  orderItems        OrderItem[]
+}
+
+model Order {
+  id                String   @id @default(cuid())
+  orderNumber       String   @unique
+  userId            String?
+  user              User?    @relation(fields: [userId], references: [id])
+  customerName      String
+  customerEmail     String?
+  customerPhone     String
+  shippingAddress   String
+  city              String
+  state             String
+  pincode           String
+  landmark          String?
+  gstin             String?  // Optional for Business orders
+  subtotal          Float    @default(0)
+  shippingFee       Float    @default(0)
+  codFee            Float    @default(0)
+  totalAmount       Float
+  paymentMethod     String   @default("PREPAID") // PREPAID, COD
+  paymentStatus     String   @default("PENDING") // PENDING, PAID, FAILED, COD_PENDING
+  deliveryStatus    String   @default("ORDER_PLACED") // ORDER_PLACED, CONFIRMED, SHIPPED, OUT_FOR_DELIVERY, DELIVERED
+  paymentGateway    String?  // e.g., "Razorpay"
+  paymentId         String?  // Razorpay payment ID
+  courierPartner    String?  // e.g. "Bluedart", "Delhivery", "Shiprocket"
+  trackingNumber    String?  // AWB tracking number
+  estimatedDelivery String?  // e.g. "Friday, July 31"
+  orderItems        OrderItem[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model OrderItem {
+  id             String   @id @default(cuid())
+  orderId        String
+  order          Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variantId      String?
+  variant        Variant? @relation(fields: [variantId], references: [id])
+  title          String
+  size           String?
+  imageUrl       String?
+  quantity       Int
+  price          Float
+  scannedBarcode String?  // Barcode scanned / assigned during order packing & fulfillment
+}
