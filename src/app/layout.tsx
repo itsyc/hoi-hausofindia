@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import AuthProvider from '@/components/AuthProvider'
 import { CartProvider } from '@/components/CartProvider'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import UnderDevelopmentModal from '@/components/UnderDevelopmentModal'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -46,6 +47,7 @@ export default function RootLayout({
                 {children}
               </main>
               <Footer />
+              <UnderDevelopmentModal />
             </CartProvider>
           </AuthProvider>
         </ThemeProvider>
