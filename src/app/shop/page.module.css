@@ -215,7 +215,7 @@
 
 .imageContainer {
   position: relative;
-  height: 180px;
+  height: 200px;
   border-radius: 12px;
   background: var(--bg-tertiary);
   border: 1px solid var(--border-subtle);
@@ -224,12 +224,13 @@
   justify-content: center;
   margin-bottom: 20px;
   overflow: hidden;
+  padding: 8px;
 }
 
 .imageGlow {
   position: absolute;
-  width: 60%;
-  height: 60%;
+  width: 70%;
+  height: 70%;
   background: radial-gradient(circle, var(--accent-cyan-glow) 0%, transparent 70%);
   filter: blur(20px);
 }
@@ -237,14 +238,17 @@
 .productImg {
   position: relative;
   z-index: 2;
-  max-width: 85%;
-  max-height: 85%;
+  width: 96%;
+  height: 96%;
+  max-width: 96%;
+  max-height: 96%;
   object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15));
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .variantCard:hover .productImg {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 .modelTitle {
