@@ -36,7 +36,7 @@ export default function LoginPage() {
       const data = await res.json()
       if (res.ok) {
         setOtpSent(true)
-        setDevOtpHint(data.devOtp || '123456')
+        setDevOtpHint(data.devOtp || '')
       } else {
         setError(data.message || 'Failed to send OTP')
       }
