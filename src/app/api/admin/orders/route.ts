@@ -159,7 +159,7 @@ export async function PUT(req: Request) {
             `Great news! Your order *#${updatedOrder.orderNumber}* has been dispatched.\n\n` +
             `• Courier Partner: ${updatedOrder.courierPartner || 'Delhivery'}\n` +
             `• Tracking Number (AWB): *${updatedOrder.trackingNumber || 'N/A'}*\n\n` +
-            `Track your shipment live here:\nhttps://hausofindia.in/track-order?orderId=${updatedOrder.orderNumber}`;
+            `Track your shipment live here:\n${process.env.NEXT_PUBLIC_BASE_URL || 'https://hausofindia.com'}/track-order?orderId=${updatedOrder.orderNumber}`;
           break;
 
         case "DELIVERED":

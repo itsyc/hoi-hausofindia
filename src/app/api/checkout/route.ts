@@ -122,7 +122,7 @@ export async function POST(req: Request) {
       `• Payment Mode: ${order.paymentMethod}\n` +
       `• Estimated Delivery: ${order.estimatedDelivery}\n\n` +
       `🚚 *Shipping Address*:\n${order.shippingAddress}, ${order.city}, ${order.state} - ${order.pincode}\n\n` +
-      `Track your order anytime here:\nhttps://hausofindia.in/track-order?orderId=${order.orderNumber}`;
+      `Track your order anytime here:\n${process.env.NEXT_PUBLIC_BASE_URL || 'https://hausofindia.com'}/track-order?orderId=${order.orderNumber}`;
 
     sendWhatsAppMessage(order.customerPhone, orderConfirmationMessage).catch(console.error);
 
