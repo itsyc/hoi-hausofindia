@@ -9,7 +9,7 @@ export default function AddProductPage() {
 
   const [formData, setFormData] = useState({
     title: '',
-    series: 'C-CLASS',
+    series: 'W-CLASS',
     description: '',
     imageUrl: '',
     published: false,
@@ -132,9 +132,8 @@ export default function AddProductPage() {
             <div className="form-group">
               <label className="form-label">Series Classification</label>
               <select className="form-input" value={formData.series} onChange={e => setFormData({...formData, series: e.target.value})}>
-                <option value="C-CLASS">C-CLASS</option>
-                <option value="A-CLASS">A-CLASS</option>
-                <option value="G-CLASS">G-CLASS</option>
+                <option value="W-CLASS">W-CLASS (WebOS TV)</option>
+                <option value="A-CLASS">A-CLASS (Android TV)</option>
               </select>
             </div>
             <div className="form-group">
@@ -189,7 +188,7 @@ export default function AddProductPage() {
                       <input 
                         type="text" 
                         className="form-input" 
-                        placeholder="Feature Title (e.g. Cloud OS 9.0)"
+                        placeholder="Feature Title (e.g. WebOS 24 or Android TV)"
                         value={feat.title || ''} 
                         onChange={e => {
                           const newF = [...formData.features];
@@ -213,7 +212,7 @@ export default function AddProductPage() {
                     <input 
                       type="text" 
                       className="form-input" 
-                      placeholder="Info Explanation / Description (e.g. Fast cloud OS streaming apps without lag)"
+                      placeholder="Info Explanation / Description (e.g. Fast WebOS / Android streaming apps without lag)"
                       value={feat.description || ''} 
                       onChange={e => {
                         const newF = [...formData.features];

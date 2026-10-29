@@ -21,8 +21,8 @@ export default function WarrantyPolicyPage() {
           <div className={styles.sectionBlock}>
             <h2 className={styles.sectionTitle}>1. Coverage & Duration</h2>
             <ul className={styles.bulletList}>
-              <li><strong>2-Year Comprehensive Warranty:</strong> All products sold by HAUS OF INDIA come with a 2-year full warranty covering manufacturing defects, panel issues, and hardware malfunctions under normal usage conditions.</li>
-              <li><strong>Additional 3rd Year Labour-Free Warranty:</strong> We offer an additional 3rd-year extended warranty where all labour & service charges are completely waived off — you are only charged for the cost of replacement parts if required.</li>
+              <li><strong>1-Year Comprehensive Warranty:</strong> All products sold by HAUS OF INDIA come with a 1-year full warranty covering manufacturing defects, panel issues, and hardware malfunctions under normal usage conditions.</li>
+              <li><strong>Additional 2nd Year Labour-Free Warranty:</strong> We offer an additional 2nd-year extended warranty where all labour & service charges are completely waived off — you are only charged for the cost of replacement parts if required.</li>
             </ul>
           </div>
 

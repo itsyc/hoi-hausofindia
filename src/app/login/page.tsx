@@ -104,14 +104,14 @@ export default function LoginPage() {
       <div className={`premium-card ${styles.authCard}`}>
         {/* Top Tab Switcher */}
         <div className={styles.tabBar}>
-          <button 
+          <button
             type="button"
             className={`${styles.tabBtn} ${!isAdminTab ? styles.tabActive : ''}`}
             onClick={() => { setIsAdminTab(false); setError(''); }}
           >
             CUSTOMER LOGIN (OTP)
           </button>
-          <button 
+          <button
             type="button"
             className={`${styles.tabBtn} ${isAdminTab ? styles.tabActive : ''}`}
             onClick={() => { setIsAdminTab(true); setError(''); }}
@@ -134,14 +134,14 @@ export default function LoginPage() {
                   <label className="form-label">Mobile Number</label>
                   <div className={styles.phoneInputRow}>
                     <span className={styles.phoneCode}>+91</span>
-                    <input 
-                      type="tel" 
-                      className="form-input" 
+                    <input
+                      type="tel"
+                      className="form-input"
                       placeholder="9876543210"
                       maxLength={10}
-                      value={phone} 
-                      onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))} 
-                      required 
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+                      required
                     />
                   </div>
                 </div>
@@ -160,15 +160,15 @@ export default function LoginPage() {
 
                 <div className="form-group">
                   <label className="form-label">Enter 6-Digit OTP</label>
-                  <input 
-                    type="text" 
-                    className="form-input text-center" 
+                  <input
+                    type="text"
+                    className="form-input text-center"
                     placeholder="1 2 3 4 5 6"
                     maxLength={6}
                     style={{ letterSpacing: '4px', fontSize: '1.2rem', fontWeight: 800 }}
-                    value={otp} 
-                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))} 
-                    required 
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                    required
                   />
                 </div>
 
@@ -176,8 +176,8 @@ export default function LoginPage() {
                   {loading ? 'Verifying...' : 'VERIFY & CONTINUE'}
                 </button>
 
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => { setOtpSent(false); setOtp(''); setError(''); }}
                   className={styles.resendBtn}
                 >
@@ -195,24 +195,24 @@ export default function LoginPage() {
             <form onSubmit={handleAdminLogin}>
               <div className="form-group">
                 <label className="form-label">Admin Email</label>
-                <input 
-                  type="email" 
-                  className="form-input" 
+                <input
+                  type="email"
+                  className="form-input"
                   placeholder="admin@hausofindia.com"
-                  value={email} 
-                  onChange={(e) => setEmail(e.target.value)} 
-                  required 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </div>
               <div className="form-group">
                 <label className="form-label">Admin Password</label>
-                <input 
-                  type="password" 
-                  className="form-input" 
+                <input
+                  type="password"
+                  className="form-input"
                   placeholder="••••••••"
-                  value={password} 
-                  onChange={(e) => setPassword(e.target.value)} 
-                  required 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
               </div>
               <button type="submit" disabled={loading} className="btn-primary" style={{ width: '100%', marginTop: '10px' }}>

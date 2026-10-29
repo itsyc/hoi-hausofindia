@@ -31,7 +31,7 @@ model OtpToken {
 model Product {
   id          String   @id @default(cuid())
   title       String
-  series      String   // "C-CLASS", "A-CLASS", "G-CLASS"
+  series      String   // "W-CLASS", "A-CLASS"
   description String
   features    String   // JSON string or comma separated
   specs       String?  // JSON string for technical specifications

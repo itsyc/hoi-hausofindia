@@ -22,7 +22,7 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: 'HAUS OF INDIA | Premium E-Commerce',
-  description: 'Premium LED TV brand showcasing C-Class, A-Class, and G-Class series.',
+  description: 'Premium LED TV brand showcasing WebOS TV and Android TV series.',
 }
 
 export const viewport: Viewport = {

@@ -24,99 +24,62 @@ async function main() {
   
   console.log({ admin })
 
-  // 1. C CLASS SERIES
-  const cClass = await prisma.product.create({
+  // 1. W-CLASS: WEBOS TV (Available in 43", 55")
+  const wClass = await prisma.product.create({
     data: {
-      title: 'HOI-C Series Smart Cloud TV',
-      series: 'C-CLASS',
-      description: 'Budget-friendly & massive free content. Official Cloud OS 9.0 (Built-in Cloud App Store).',
-      features: JSON.stringify(['Cloud OS 9.0', '5000+ Free Movies & Games', 'Cloud Voice Remote', 'Dual Bluetooth']),
+      title: 'HOI-W Series WebOS TV',
+      series: 'W-CLASS',
+      description: 'Flagship cinematic smart TV powered by LG WebOS TV with Magic Remote, 4K Ultra HD Display, and Dolby Audio.',
+      features: JSON.stringify(['Official WebOS TV', 'Magic Remote with Pointer & Voice', '4K Ultra HD Display (HDR10)', 'Apple AirPlay 2 & HomeKit', 'Dolby Audio Surround Sound']),
       specs: JSON.stringify({
-        "Best For": "Budget-friendly & massive free content",
-        "Available Sizes": "32\", 43\", 55\"",
-        "Smart Software": "Cloud OS 9.0 (Cloud App Store)",
-        "Picture Quality": "Standard HD / 4K on 43\"",
-        "Speed & Memory": "Processor: 4-Core • 32\": 512MB or 1GB RAM • Others: 1GB RAM + 8GB Storage",
-        "Sound System": "20W Soundbar Speakers + Dolby Audio",
-        "Internet & Wi-Fi": "Standard Wi-Fi",
-        "Bluetooth": "Dual Bluetooth (Connect 2 devices)",
-        "Remote Control": "Cloud Voice Remote",
-        "Bonus Features": "5000+ Free Movies & 500+ Games",
+        "Best For": "Flagship cinematic streaming & effortless Magic Remote control",
+        "Available Sizes": "43\", 55\"",
+        "Smart Software": "Official WebOS TV (Content Store & ThinQ AI)",
+        "Picture Quality": "BOE A+ Grade 4K Ultra HD Panel • HDR10 • Micro Dimming",
+        "Speed & Memory": "Quad-Core High-Speed Processor • 1.5GB / 2GB RAM • 8GB High-Speed Storage",
+        "Sound System": "24W Box Speakers with Dolby Audio",
+        "Internet & Wi-Fi": "Dual-Band Wi-Fi (2.4GHz / 5GHz)",
+        "Bluetooth": "Two-Way Bluetooth 5.0",
+        "Remote Control": "Ergonomic Magic Remote with Air Mouse Pointer & Voice Assistant",
+        "Ports": "3 HDMI (with ARC) / 2 USB"
+      }),
+      published: true,
+      variants: {
+        create: [
+          { name: '43" 4K UHD (WebOS TV)', mrp: 32999, discountPct: 25, price: 24749.25 },
+          { name: '55" 4K UHD (WebOS TV)', mrp: 49999, discountPct: 25, price: 37499.25 },
+        ]
+      }
+    }
+  })
+
+  // 2. A-CLASS: ANDROID TV (Available in 32", 43", 50", 55")
+  const aClass = await prisma.product.create({
+    data: {
+      title: 'HOI-A Series Android TV',
+      series: 'A-CLASS',
+      description: 'Reliable everyday streaming on certified Android TV with Google Play Store, Google Assistant Voice Remote, and built-in Chromecast.',
+      features: JSON.stringify(['Android TV OS', 'Google Play Store (10,000+ Apps)', 'Google Assistant Voice Remote', 'Chromecast Built-in', 'Dolby Audio']),
+      specs: JSON.stringify({
+        "Best For": "Everyday streaming, huge app ecosystem & seamless smartphone casting",
+        "Available Sizes": "32\", 43\", 50\", 55\"",
+        "Smart Software": "Certified Android TV OS (Google Play Store)",
+        "Picture Quality": "BOE A+ Grade Panel • HD (32\") / FHD (43\") / 4K on 50\" & 55\"",
+        "Speed & Memory": "Processor: 1.3GHz 4-Core • 32\"–50\": 1GB RAM + 8GB Storage • 55\": 2GB RAM + 16GB Storage",
+        "Sound System": "20W Soundbar Speakers with Dolby Audio",
+        "Internet & Wi-Fi": "High-Speed Wi-Fi",
+        "Bluetooth": "Bluetooth 5.0",
+        "Remote Control": "Google Assistant Voice Remote",
+        "Bonus Features": "Huge library of Android phone-style & TV apps",
         "Ports": "2 HDMI / 2 USB"
       }),
       published: true,
       variants: {
         create: [
-          { name: '32" HD (512MB RAM)', mrp: 15999, discountPct: 20, price: 12799.2 },
-          { name: '32" HD (1GB RAM)', mrp: 16999, discountPct: 20, price: 13599.2 },
-          { name: '43" FHD (1GB RAM)', mrp: 25999, discountPct: 25, price: 19499.25 },
-          { name: '43" 4K (1GB RAM)', mrp: 29999, discountPct: 25, price: 22499.25 },
-          { name: '55" FHD (1GB RAM)', mrp: 39999, discountPct: 30, price: 27999.3 },
-        ]
-      }
-    }
-  })
-
-  // 2. A CLASS SERIES
-  const aClass = await prisma.product.create({
-    data: {
-      title: 'HOI-A Series Android TV',
-      series: 'A-CLASS',
-      description: 'Reliable everyday apps (Netflix/YouTube) on Android TV (Google Play Store).',
-      features: JSON.stringify(['Android TV OS', 'Google Play Store', 'Huge App Library', 'Standard Remote']),
-      specs: JSON.stringify({
-        "Best For": "Reliable everyday apps (Netflix/YouTube)",
-        "Available Sizes": "32\", 43\", 50\", 55\"",
-        "Smart Software": "Android TV (Google Play Store)",
-        "Picture Quality": "BOE A+ Grade Panel • 4K available on 50\" & 55\"",
-        "Speed & Memory": "Processor: 1.3GHz 4-Core • 32\"–50\": 1GB RAM + 8GB Storage • 55\": 2GB RAM + 16GB Storage available",
-        "Sound System": "20W Soundbar Speakers",
-        "Internet & Wi-Fi": "Standard Wi-Fi",
-        "Bluetooth": "Bluetooth 4.0",
-        "Remote Control": "Standard Remote",
-        "Bonus Features": "Huge library of Android phone-style apps",
-        "Ports": "2 HDMI / 1 USB"
-      }),
-      published: true,
-      variants: {
-        create: [
-          { name: '32" FHD (1GB RAM)', mrp: 18999, discountPct: 20, price: 15199.2 },
-          { name: '43" FHD (1GB RAM)', mrp: 28999, discountPct: 20, price: 23199.2 },
-          { name: '50" 4K (1GB RAM)', mrp: 38999, discountPct: 25, price: 29249.25 },
-          { name: '55" 4K (1GB/8GB)', mrp: 44999, discountPct: 25, price: 33749.25 },
-          { name: '55" 4K Pro (2GB/16GB)', mrp: 49999, discountPct: 25, price: 37499.25 },
-        ]
-      }
-    }
-  })
-
-  // 3. G CLASS SERIES
-  const gClass = await prisma.product.create({
-    data: {
-      title: 'HOI-G Series Google TV',
-      series: 'G-CLASS',
-      description: 'Premium, cinematic experience & AI smarts with Certified Google TV (Android 11, Upgradable).',
-      features: JSON.stringify(['Google TV (Android 11)', 'Gemini AI Assistant', 'OLED Display (55")', 'Theater Quality Dolby Audio']),
-      specs: JSON.stringify({
-        "Best For": "Premium, cinematic experience & AI smarts",
-        "Available Sizes": "32\", 43\", 55\"",
-        "Smart Software": "Certified Google TV (Android 11, Upgradable)",
-        "Picture Quality": "BOE A+ Grade Premium Panel • 4K Ultra HD + HDR10 • OLED Display on 55\"",
-        "Speed & Memory": "Processor: Fast 1.5GHz Mediatek 4-Core • 32\": 1.5GB RAM • Others: 2GB RAM + 16GB Storage",
-        "Sound System": "20W Dolby Audio (Theater Quality)",
-        "Internet & Wi-Fi": "Ultra-Fast 5GHz Dual-Band Wi-Fi",
-        "Bluetooth": "Advanced Bluetooth 5.0",
-        "Remote Control": "Bluetooth Remote with Gemini AI Assistant",
-        "Bonus Features": "Personal show recommendations & Smart Home control",
-        "Ports": "2 HDMI / 1 USB (Typical standard layout)"
-      }),
-      published: true,
-      variants: {
-        create: [
-          { name: '32" HD (1.5GB/16GB)', mrp: 21999, discountPct: 15, price: 18699.15 },
-          { name: '43" FHD (2GB/16GB)', mrp: 32999, discountPct: 20, price: 26399.2 },
-          { name: '43" 4K (2GB/16GB)', mrp: 35999, discountPct: 20, price: 28799.2 },
-          { name: '55" OLED 4K (2GB/16GB)', mrp: 69999, discountPct: 15, price: 59499.15 },
+          { name: '32" HD (Android TV)', mrp: 18999, discountPct: 20, price: 15199.2 },
+          { name: '43" FHD (Android TV)', mrp: 28999, discountPct: 20, price: 23199.2 },
+          { name: '50" 4K (Android TV)', mrp: 38999, discountPct: 25, price: 29249.25 },
+          { name: '55" 4K (Android TV)', mrp: 44999, discountPct: 25, price: 33749.25 },
         ]
       }
     }

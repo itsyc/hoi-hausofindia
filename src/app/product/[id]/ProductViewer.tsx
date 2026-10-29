@@ -4,6 +4,7 @@ import Link from 'next/link'
 import styles from './page.module.css'
 import AddToCartButton from '@/components/AddToCartButton'
 import ShopVariantCard from '@/components/ShopVariantCard'
+import PayUEmiWidget from '@/components/PayUEmiWidget'
 
 // Smart Spec Explanation Dictionary
 const SPEC_EXPLANATIONS: Record<string, { title: string; desc: string }> = {
@@ -21,11 +22,11 @@ const SPEC_EXPLANATIONS: Record<string, { title: string; desc: string }> = {
   },
   'operating system': {
     title: 'Smart TV Operating System',
-    desc: 'Cloud-based smart OS offering instant app launching, cloud streaming, voice remote compatibility, and zero-lag performance.'
+    desc: 'Official Smart TV OS (WebOS TV or Android TV) offering 4K streaming, voice control, rich app store, and zero-lag performance.'
   },
   'os': {
     title: 'Smart TV Operating System',
-    desc: 'Cloud-based smart OS offering instant app launching, cloud streaming, voice remote compatibility, and zero-lag performance.'
+    desc: 'Official Smart TV OS (WebOS TV or Android TV) offering 4K streaming, voice control, rich app store, and zero-lag performance.'
   },
   'refresh rate': {
     title: 'Refresh Rate',
@@ -75,29 +76,29 @@ const SPEC_EXPLANATIONS: Record<string, { title: string; desc: string }> = {
     title: 'Internal Storage',
     desc: 'Onboard flash memory for installing apps, games, and system software updates.'
   },
-  'cloud os': {
-    title: 'Cloud OS Operating System',
-    desc: 'Advanced cloud-based operating system providing instant app streaming, cloud gaming, and lag-free TV navigation.'
+  'webos': {
+    title: 'WebOS TV Operating System',
+    desc: 'Official WebOS TV platform with Magic Remote air-mouse pointer, ThinQ AI smart home hub, Apple AirPlay 2, and 4K HDR streaming.'
   },
-  'cloud': {
-    title: 'Cloud OS Operating System',
-    desc: 'Advanced cloud-based operating system providing instant app streaming, cloud gaming, and lag-free TV navigation.'
+  'android tv': {
+    title: 'Android TV Operating System',
+    desc: 'Official Android TV with Google Play Store access to 10,000+ apps, Google Assistant voice remote, and built-in Chromecast.'
   },
-  'movies': {
-    title: '5000+ Free Content Hub',
-    desc: 'Access 5000+ free movies, TV shows, and cloud games pre-loaded directly on your TV without extra subscriptions.'
-  },
-  'games': {
-    title: '5000+ Free Content Hub',
-    desc: 'Access 5000+ free movies, TV shows, and cloud games pre-loaded directly on your TV without extra subscriptions.'
+  'android': {
+    title: 'Android TV Operating System',
+    desc: 'Official Android TV with Google Play Store access to 10,000+ apps, Google Assistant voice remote, and built-in Chromecast.'
   },
   'voice remote': {
-    title: 'Cloud Voice Remote',
+    title: 'Smart Voice Remote',
     desc: 'Smart remote control featuring instant voice search microphone, dedicated app keys, and Bluetooth connectivity.'
   },
   'remote': {
-    title: 'Cloud Voice Remote',
+    title: 'Smart Voice Remote',
     desc: 'Smart remote control featuring instant voice search microphone, dedicated app keys, and Bluetooth connectivity.'
+  },
+  'magic remote': {
+    title: 'Magic Remote Pointer',
+    desc: 'Ergonomic remote with intuitive air-mouse pointer, clickable scroll wheel, and voice assistant for effortless TV navigation.'
   },
   'quantum dot': {
     title: 'Quantum Dot Display',
@@ -115,10 +116,6 @@ const SPEC_EXPLANATIONS: Record<string, { title: string; desc: string }> = {
     title: 'Google Smart TV Ecosystem',
     desc: 'Official Google TV system providing personalized content recommendations, Google Assistant voice search, and Play Store app access.'
   },
-  'android': {
-    title: 'Official Android TV OS',
-    desc: 'Powered by official Android TV OS ensuring smooth performance, regular security updates, and full Google ecosystem compatibility.'
-  },
   'chromecast': {
     title: 'Chromecast Built-In',
     desc: 'Cast photos, videos, movies, and music instantly from your smartphone or tablet onto the big screen with zero setup.'
@@ -133,11 +130,11 @@ const SPEC_EXPLANATIONS: Record<string, { title: string; desc: string }> = {
   },
   'apps': {
     title: 'Smart TV Apps',
-    desc: 'Preloaded and downloadable apps including YouTube, Prime Video, Netflix, Disney+ Hotstar, and 5000+ free cloud games.'
+    desc: 'Preloaded and downloadable apps including YouTube, Prime Video, Netflix, Disney+ Hotstar, and popular OTT streaming platforms.'
   },
   'warranty': {
     title: 'HAUS Guarantee & Warranty',
-    desc: '2 Years comprehensive warranty on manufacturing defects & panel + 3rd Year free labour warranty service.'
+    desc: '1 Year comprehensive warranty on manufacturing defects & panel + 2nd Year free labour service (parts charged at cost).'
   }
 }
 
@@ -194,11 +191,10 @@ export default function ProductViewer({
   const targetSizeNumber = sizeMatch ? sizeMatch[0] : ''
 
   // Collect all variant cards across all products for recommendations
-  const allVariantItems: Array<{ product: any; variant: any; seriesTheme: 'c-class' | 'a-class' | 'g-class' }> = []
+  const allVariantItems: Array<{ product: any; variant: any; seriesTheme: 'w-class' | 'a-class' }> = []
   allProducts.forEach((p: any) => {
-    const seriesTheme = (p.series || '').toUpperCase().includes('A') 
-      ? 'a-class' 
-      : (p.series || '').toUpperCase().includes('G') ? 'g-class' : 'c-class'
+    const s = (p.series || '').toUpperCase().trim()
+    const seriesTheme = s.startsWith('A') ? 'a-class' : 'w-class'
     p.variants?.forEach((v: any) => {
       allVariantItems.push({ product: p, variant: v, seriesTheme })
     })
@@ -350,6 +346,9 @@ export default function ProductViewer({
             )}
           </div>
 
+          {/* PayU EMI & Card Options Widget */}
+          <PayUEmiWidget price={selectedVariant?.price || 0} />
+
           {/* Model Size Selection Pills */}
           <div className={styles.variantsSection}>
             <h3 className={styles.sectionTitle}>SELECT MODEL SIZE</h3>
@@ -396,8 +395,8 @@ export default function ProductViewer({
             <div className={styles.trustBadgeItem}>
               <div className={styles.trustBadgeIcon}>🛡️</div>
               <div className={styles.trustBadgeText}>
-                <strong>2 Years Warranty + 3rd Year Labour Free</strong>
-                <span>2-Year comprehensive warranty on manufacturing defects + 3rd-year free labour service (parts charged at cost).</span>
+                <strong>1 Year Warranty + 2nd Year Labour Free</strong>
+                <span>1-Year comprehensive warranty on manufacturing defects + 2nd-year free labour service (parts charged at cost).</span>
               </div>
             </div>
             <div className={styles.trustBadgeItem}>

@@ -8,10 +8,10 @@ import styles from '../app/shop/page.module.css'
 type ShopVariantCardProps = {
   product: any
   variant: any
-  seriesTheme: 'c-class' | 'a-class' | 'g-class'
+  seriesTheme?: 'w-class' | 'a-class' | 'g-class' | 'c-class'
 }
 
-export default function ShopVariantCard({ product, variant, seriesTheme }: ShopVariantCardProps) {
+export default function ShopVariantCard({ product, variant, seriesTheme = 'w-class' }: ShopVariantCardProps) {
   const { addToCart } = useCart()
   const router = useRouter()
 

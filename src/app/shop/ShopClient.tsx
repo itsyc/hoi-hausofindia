@@ -14,16 +14,20 @@ export default function ShopClient({ initialProducts }: ShopClientProps) {
   const [selectedSize, setSelectedSize] = useState<string>('ALL')
 
   // Map products by series
-  const cClassProduct = useMemo(
-    () => initialProducts.find(p => p.series.toUpperCase() === 'C-CLASS'),
+  const wClassProduct = useMemo(
+    () => initialProducts.find(p => {
+      const s = (p.series || '').toUpperCase()
+      const t = (p.title || '').toLowerCase()
+      return s.includes('W') || s.includes('WEBOS') || t.includes('webos')
+    }),
     [initialProducts]
   )
   const aClassProduct = useMemo(
-    () => initialProducts.find(p => p.series.toUpperCase() === 'A-CLASS'),
-    [initialProducts]
-  )
-  const gClassProduct = useMemo(
-    () => initialProducts.find(p => p.series.toUpperCase() === 'G-CLASS'),
+    () => initialProducts.find(p => {
+      const s = (p.series || '').toUpperCase().trim()
+      const t = (p.title || '').toLowerCase()
+      return s.startsWith('A') || t.includes('android')
+    }),
     [initialProducts]
   )
 
@@ -70,22 +74,17 @@ export default function ShopClient({ initialProducts }: ShopClientProps) {
   }
 
   // Filter variants per series
-  const cClassVariants = useMemo(() => {
-    if (!cClassProduct) return []
-    return cClassProduct.variants.filter((v: any) => isVariantMatching(cClassProduct, v))
-  }, [cClassProduct, selectedSeries, selectedResolution, selectedSize])
+  const wClassVariants = useMemo(() => {
+    if (!wClassProduct) return []
+    return wClassProduct.variants.filter((v: any) => isVariantMatching(wClassProduct, v))
+  }, [wClassProduct, selectedSeries, selectedResolution, selectedSize])
 
   const aClassVariants = useMemo(() => {
     if (!aClassProduct) return []
     return aClassProduct.variants.filter((v: any) => isVariantMatching(aClassProduct, v))
   }, [aClassProduct, selectedSeries, selectedResolution, selectedSize])
 
-  const gClassVariants = useMemo(() => {
-    if (!gClassProduct) return []
-    return gClassProduct.variants.filter((v: any) => isVariantMatching(gClassProduct, v))
-  }, [gClassProduct, selectedSeries, selectedResolution, selectedSize])
-
-  const totalMatchingVariants = cClassVariants.length + aClassVariants.length + gClassVariants.length
+  const totalMatchingVariants = wClassVariants.length + aClassVariants.length
 
   // Smooth scroll handler for Series Shortcut Buttons
   const scrollToSeries = (seriesId: string, seriesKey: string) => {
@@ -122,7 +121,7 @@ export default function ShopClient({ initialProducts }: ShopClientProps) {
             EXPLORE ALL <span className={styles.heroTitleHighlight}>MODELS & VARIANTS</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            Compare variants across our Cloud, Android, and Certified Google TV series. Engineered with premium BOE panels, immersive Dolby Audio, and smart connectivity.
+            Compare variants across our signature WebOS TV and Android TV series. Engineered with premium BOE panels, immersive Dolby Audio, and smart connectivity.
           </p>
         </div>
       </section>
@@ -143,12 +142,12 @@ export default function ShopClient({ initialProducts }: ShopClientProps) {
                 All Series
               </button>
               <button
-                onClick={() => setSelectedSeries('C-CLASS')}
-                className={`${styles.seriesTab} ${styles.tabC} ${selectedSeries === 'C-CLASS' ? styles.activeTabC : ''}`}
-                title="C-Class Series (Cloud OS)"
+                onClick={() => setSelectedSeries('W-CLASS')}
+                className={`${styles.seriesTab} ${styles.tabW} ${selectedSeries === 'W-CLASS' ? styles.activeTabW : ''}`}
+                title="W-Class Series (WebOS TV)"
               >
-                <span className={styles.tabBadgeC}>C</span>
-                <span>C-Class</span>
+                <span className={styles.tabBadgeW}>W</span>
+                <span>WebOS TV</span>
               </button>
               <button
                 onClick={() => setSelectedSeries('A-CLASS')}
@@ -156,15 +155,7 @@ export default function ShopClient({ initialProducts }: ShopClientProps) {
                 title="A-Class Series (Android TV)"
               >
                 <span className={styles.tabBadgeA}>A</span>
-                <span>A-Class</span>
-              </button>
-              <button
-                onClick={() => setSelectedSeries('G-CLASS')}
-                className={`${styles.seriesTab} ${styles.tabG} ${selectedSeries === 'G-CLASS' ? styles.activeTabG : ''}`}
-                title="G-Class Series (Google TV)"
-              >
-                <span className={styles.tabBadgeG}>G</span>
-                <span>G-Class</span>
+                <span>Android TV</span>
               </button>
             </div>
 
@@ -238,25 +229,25 @@ export default function ShopClient({ initialProducts }: ShopClientProps) {
           </div>
         )}
 
-        {/* SECTION 1: HOI-C SERIES SMART CLOUD TV */}
-        {cClassProduct && cClassVariants.length > 0 && (
-          <section id="c-class-section" className={styles.seriesSection}>
-            <div className={`${styles.seriesBanner} ${styles.cSeriesBanner}`}>
+        {/* SECTION 1: HOI-W SERIES WEBOS TV */}
+        {wClassProduct && wClassVariants.length > 0 && (
+          <section id="w-class-section" className={styles.seriesSection}>
+            <div className={`${styles.seriesBanner} ${styles.wSeriesBanner}`}>
               <div className={styles.seriesBannerHeader}>
-                <span className={`${styles.seriesBadge} ${styles.cSeriesBadge}`}>C-CLASS SERIES</span>
-                <span className={styles.seriesVariantCount}>{cClassVariants.length} Models Available</span>
+                <span className={`${styles.seriesBadge} ${styles.wSeriesBadge}`}>W-CLASS SERIES</span>
+                <span className={styles.seriesVariantCount}>{wClassVariants.length} Models Available (43&quot;, 55&quot;)</span>
               </div>
-              <h2 className={styles.seriesHeaderTitle}>HOI-C Series Smart Cloud TV</h2>
-              <p className={styles.seriesHeaderDesc}>{cClassProduct.description}</p>
+              <h2 className={styles.seriesHeaderTitle}>{wClassProduct.title}</h2>
+              <p className={styles.seriesHeaderDesc}>{wClassProduct.description}</p>
             </div>
 
             <div className={styles.variantGrid}>
-              {cClassVariants.map((variant: any) => (
+              {wClassVariants.map((variant: any) => (
                 <ShopVariantCard 
                   key={variant.id}
-                  product={cClassProduct}
+                  product={wClassProduct}
                   variant={variant}
-                  seriesTheme="c-class"
+                  seriesTheme="w-class"
                 />
               ))}
             </div>
@@ -269,9 +260,9 @@ export default function ShopClient({ initialProducts }: ShopClientProps) {
             <div className={`${styles.seriesBanner} ${styles.aSeriesBanner}`}>
               <div className={styles.seriesBannerHeader}>
                 <span className={`${styles.seriesBadge} ${styles.aSeriesBadge}`}>A-CLASS SERIES</span>
-                <span className={styles.seriesVariantCount}>{aClassVariants.length} Models Available</span>
+                <span className={styles.seriesVariantCount}>{aClassVariants.length} Models Available (32&quot;, 43&quot;, 50&quot;, 55&quot;)</span>
               </div>
-              <h2 className={styles.seriesHeaderTitle}>HOI-A Series Android TV</h2>
+              <h2 className={styles.seriesHeaderTitle}>{aClassProduct.title}</h2>
               <p className={styles.seriesHeaderDesc}>{aClassProduct.description}</p>
             </div>
 
@@ -282,31 +273,6 @@ export default function ShopClient({ initialProducts }: ShopClientProps) {
                   product={aClassProduct}
                   variant={variant}
                   seriesTheme="a-class"
-                />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* SECTION 3: HOI-G SERIES GOOGLE TV */}
-        {gClassProduct && gClassVariants.length > 0 && (
-          <section id="g-class-section" className={styles.seriesSection}>
-            <div className={`${styles.seriesBanner} ${styles.gSeriesBanner}`}>
-              <div className={styles.seriesBannerHeader}>
-                <span className={`${styles.seriesBadge} ${styles.gSeriesBadge}`}>G-CLASS SERIES</span>
-                <span className={styles.seriesVariantCount}>{gClassVariants.length} Models Available</span>
-              </div>
-              <h2 className={styles.seriesHeaderTitle}>HOI-G Series Google TV</h2>
-              <p className={styles.seriesHeaderDesc}>{gClassProduct.description}</p>
-            </div>
-
-            <div className={styles.variantGrid}>
-              {gClassVariants.map((variant: any) => (
-                <ShopVariantCard 
-                  key={variant.id}
-                  product={gClassProduct}
-                  variant={variant}
-                  seriesTheme="g-class"
                 />
               ))}
             </div>
