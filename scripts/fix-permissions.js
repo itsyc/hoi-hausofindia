@@ -19,7 +19,7 @@ function chmodRecursive(targetPath) {
 }
 
 console.log('Fixing directory and file permissions (0755/0644)...')
-const targetDirectories = ['src', 'public', 'prisma', 'scripts']
+const targetDirectories = ['src', 'public', 'prisma', 'scripts', '.next']
 targetDirectories.forEach(dir => {
   chmodRecursive(path.resolve(__dirname, '..', dir))
 })
