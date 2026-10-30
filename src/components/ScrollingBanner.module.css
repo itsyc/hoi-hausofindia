@@ -86,3 +86,39 @@
   margin-left: 20px;
   opacity: 0.8;
 }
+
+@media (max-width: 640px) {
+  .bannerWrapper {
+    padding: 10px 0;
+    margin: 8px 0 16px 0;
+  }
+
+  .marqueeTrack {
+    gap: 20px;
+    animation: marquee 26s linear infinite;
+  }
+
+  .bannerItem {
+    gap: 8px;
+  }
+
+  .itemIcon {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+
+  .itemTitle {
+    font-size: 0.76rem;
+  }
+
+  .itemDesc {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+  }
+
+  .separator {
+    margin-left: 12px;
+  }
+}
+

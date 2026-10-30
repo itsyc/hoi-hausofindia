@@ -295,30 +295,245 @@
 
 @media (max-width: 640px) {
   .productPage {
-    padding: 30px 16px;
+    padding: 20px 14px 60px 14px;
+  }
+
+  .backLink {
+    margin-top: 4px;
+    margin-bottom: 18px;
+    font-size: 0.8rem;
+    padding: 6px 14px;
+  }
+
+  .productGrid {
+    gap: 24px;
+  }
+
+  .showcaseWrapper {
+    margin-bottom: 14px;
+  }
+
+  .imagePlaceholder {
+    height: 240px;
+    max-height: 45vh;
+  }
+
+  .imageCard {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .thumbnailList {
+    gap: 8px;
+    padding-bottom: 6px;
+  }
+
+  .thumbnailCard {
+    width: 64px;
+    height: 46px;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .badgeContainer {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .badge {
+    height: 24px;
+    padding: 2px 10px;
+    font-size: 0.7rem;
   }
 
   .title {
-    font-size: 1.8rem;
+    font-size: clamp(1.35rem, 5vw, 1.75rem);
+    line-height: 1.25;
+    word-break: break-word;
+    margin-bottom: 10px;
   }
 
-  .price {
-    font-size: 1.8rem;
+  .titleVariantHighlight {
+    color: var(--accent-cyan-light);
+    font-weight: 700;
+  }
+
+  .description {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin-bottom: 20px;
+  }
+
+  .priceContainer {
+    padding: 14px;
+    margin-bottom: 20px;
+    border-radius: 14px;
   }
 
   .priceFlex {
     flex-wrap: wrap;
-    gap: 10px;
+    align-items: baseline;
+    gap: 8px;
   }
 
-  .imageCard {
-    padding: 16px;
-    border-radius: 16px;
+  .price {
+    font-size: clamp(1.8rem, 6.5vw, 2.2rem);
+    line-height: 1;
+  }
+
+  .mrpCrossed {
+    font-size: 1.05rem;
+  }
+
+  .saveNotice, .saleNoticeHighlight {
+    font-size: 0.82rem;
+    margin-top: 6px;
+  }
+
+  .sectionTitleRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .sectionTitle {
+    font-size: 0.78rem;
+    margin-bottom: 0;
+  }
+
+  .sizeGuideHint {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .variantsSection {
+    margin-bottom: 20px;
+  }
+
+  .variantsPillGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .variantPill {
+    padding: 10px 8px;
+    border-radius: 12px;
+  }
+
+  .variantSizeText {
+    font-size: 0.82rem;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .variantPriceText {
+    font-size: 0.78rem;
+  }
+
+  .trustBadgesBox {
+    padding: 14px;
+    margin: 20px 0;
+    gap: 12px;
+    border-radius: 14px;
+  }
+
+  .trustBadgeItem {
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .trustBadgeIcon {
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
+  .trustBadgeText strong {
+    font-size: 0.84rem;
+    line-height: 1.25;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .trustBadgeText span {
+    font-size: 0.76rem;
+    line-height: 1.35;
+    display: block;
+  }
+
+  .showcaseSection {
+    margin-top: 36px;
+    padding-top: 30px;
   }
 
   .showcaseBlock {
-    padding: 20px 16px;
+    padding: 20px 14px;
     border-radius: 16px;
+  }
+
+  .blockHeader {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+
+  .blockTitle {
+    font-size: 1.15rem;
+    letter-spacing: 0.8px;
+  }
+
+  .featureCard {
+    padding: 12px;
+    gap: 12px;
+    border-radius: 12px;
+  }
+
+  .featureIconBadge {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+
+  .featureCardTitle {
+    font-size: 0.92rem;
+  }
+
+  .featureCardDesc {
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .specRow {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 10px 14px;
+  }
+
+  .specKeyCell {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .specKeyName {
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+  }
+
+  .specValCell {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: left;
+    width: 100%;
+    line-height: 1.4;
   }
 
   .modalContent {
@@ -328,23 +543,22 @@
     overflow-y: auto;
   }
 
-  .variantsPillGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+  .recommendationsSection {
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+
+  .recommendationsHeader {
+    margin-bottom: 20px;
+  }
+
+  .recommendationsTitle {
+    font-size: 1.25rem;
   }
 
   .recommendationsGrid {
     grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .specRow {
-    padding: 12px 14px;
-    gap: 8px;
-  }
-
-  .specKeyName, .specValCell {
-    font-size: 0.85rem;
+    gap: 16px;
   }
 }
 

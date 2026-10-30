@@ -313,3 +313,33 @@
     top: 70px;
   }
 }
+
+@media (max-width: 480px) {
+  .navContainer {
+    height: 64px;
+  }
+
+  .logoImage {
+    height: 42px;
+    max-width: 135px;
+  }
+
+  .mobileActionGroup {
+    gap: 8px;
+  }
+
+  .cartPillMobile {
+    padding: 4px 10px;
+    font-size: 0.72rem;
+  }
+
+  .hamburgerBtn {
+    width: 38px;
+    height: 38px;
+    padding: 6px;
+  }
+
+  .mobileDrawerOverlay {
+    top: 64px;
+  }
+}

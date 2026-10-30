@@ -72,7 +72,7 @@ export default async function Home() {
               <span className={styles.heroTitleHighlight}>WebOS TV &amp; Android TV</span>
             </h1>
             <p className={styles.heroSubtitle}>
-              4K Ultra HD Display | DOLBY Audio | Voice Remote |
+              4K Ultra HD Display • DOLBY Audio • Voice Remote
             </p>
 
             {/* 2 OS Platforms Cards */}
@@ -452,6 +452,10 @@ export default async function Home() {
               <p className={styles.osComparisonSubtitle}>Direct breakdown between WebOS TV and Android TV capabilities.</p>
             </div>
             <span className={styles.osComparisonBadge}>QUICK SPEC MATCH</span>
+          </div>
+
+          <div className={styles.mobileTableSwipeHint}>
+            <span>👉 Swipe sideways to compare full specs</span>
           </div>
 
           <div className={styles.osTableResponsive}>

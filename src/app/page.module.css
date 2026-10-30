@@ -581,15 +581,39 @@
   color: var(--text-secondary);
 }
 
-@media (max-width: 992px) {
+@media (max-width: 768px) {
+  .trustBarSection {
+    padding: 16px 0;
+  }
+
   .trustBarGrid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
-}
 
-@media (max-width: 540px) {
-  .trustBarGrid {
-    grid-template-columns: 1fr;
+  .trustBarItem {
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--glass-gradient);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+  }
+
+  .trustBarIcon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.15rem;
+    border-radius: 10px;
+  }
+
+  .trustBarItem strong {
+    font-size: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .trustBarItem p {
+    font-size: 0.7rem;
+    line-height: 1.25;
   }
 }
 
@@ -1542,28 +1566,136 @@
   }
 }
 
+.mobileTableSwipeHint {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobileTableSwipeHint {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--accent-cyan-light);
+    margin-bottom: 12px;
+    background: var(--accent-cyan-glow);
+    border: 1px solid var(--border-pill);
+    padding: 6px 12px;
+    border-radius: 8px;
+    width: fit-content;
+  }
+}
+
 @media (max-width: 640px) {
   .hero {
-    padding: 30px 0 30px 0;
+    padding: 24px 0 28px 0;
     min-height: auto;
   }
 
+  .heroSubHeader {
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
   .heroTitle {
-    font-size: 2.2rem;
+    font-size: clamp(1.65rem, 5.2vw, 2.1rem);
+    line-height: 1.2;
+    margin-bottom: 12px;
   }
 
   .heroSubtitle {
-    font-size: 0.98rem;
-    margin-bottom: 24px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .heroOsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 14px 0 18px 0;
+  }
+
+  .heroOsCard {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 8px 10px 8px;
+    text-align: center;
+    gap: 6px;
+    border-radius: 14px;
+  }
+
+  .heroOsLogoWrap {
+    height: 26px;
+    width: 100%;
+    margin-bottom: 2px;
+  }
+
+  .heroOsLogoWebos {
+    max-height: 18px;
+  }
+
+  .heroOsLogoAndroid {
+    max-height: 22px;
+    transform: scale(1.2);
+  }
+
+  .heroOsTextGroup {
+    align-items: center;
+    margin-bottom: 2px;
+  }
+
+  .heroOsTitle {
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .heroOsSubtitle {
+    font-size: 0.68rem;
+  }
+
+  .heroOsPriceBlock {
+    width: 100%;
+    border-top: 1px dashed rgba(0, 0, 0, 0.08);
+    border-left: none;
+    padding-top: 6px;
+    padding-left: 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .heroOsPriceLabel {
+    font-size: 0.64rem;
+  }
+
+  .heroOsOfferPrice {
+    font-size: 0.92rem;
+  }
+
+  .heroOsMrpPrice {
+    font-size: 0.7rem;
   }
 
   .heroActions {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     width: 100%;
+    margin-bottom: 16px;
   }
 
   .btnExploreNow, .btnShopLineup {
     width: 100%;
+    padding: 12px 10px;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    text-align: center;
+    justify-content: center;
+    white-space: nowrap;
   }
 
   .heroBannerContainer {
@@ -1572,79 +1704,171 @@
     margin-left: 0;
   }
 
+  .heroBannerImage {
+    max-height: 280px;
+    object-fit: contain;
+  }
+
   .whyChooseGrid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .whyChooseTitle {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
   .whyChooseSection {
-    padding: 40px 16px 20px 16px;
+    padding: 36px 14px 20px 14px;
   }
 
   .catalogSection {
-    padding: 30px 16px 60px 16px;
+    padding: 30px 14px 50px 14px;
   }
 
   .sectionTitle {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
   }
 
   .saleSectionBanner {
-    padding: 28px 16px;
-    border-radius: 20px;
+    padding: 20px 14px;
+    border-radius: 18px;
   }
 
   .saleTitle {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
   .grid, .saleGrid {
     grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .heroOsGrid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .heroOsCard {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 14px;
-    text-align: left;
-  }
-
-  .heroOsLogoWrap {
-    width: auto;
-    margin-bottom: 0;
-  }
-
-  .heroOsTextGroup {
-    align-items: flex-start;
-    margin-bottom: 0;
-    flex-grow: 1;
-  }
-
-  .heroOsPriceBlock {
-    width: auto;
-    border-top: none;
-    border-left: 1px dashed rgba(0, 0, 0, 0.1);
-    padding-top: 0;
-    padding-left: 10px;
-    align-items: flex-end;
+    gap: 16px;
   }
 
   .osSection {
-    padding: 50px 16px 30px 16px;
+    padding: 40px 14px 24px 14px;
+  }
+
+  .osSectionHeader {
+    margin-bottom: 28px;
+  }
+
+  .osSectionTitle {
+    font-size: 1.5rem;
+    line-height: 1.25;
+  }
+
+  .osSectionSubtitle {
+    font-size: 0.88rem;
+    line-height: 1.55;
   }
 
   .osCard {
-    padding: 24px 20px;
+    padding: 20px 14px;
+    border-radius: 18px;
+  }
+
+  .osCardHeader {
+    margin-bottom: 16px;
+  }
+
+  .osCardLogoBox {
+    width: 100px;
+    height: 42px;
+    padding: 4px 10px;
+  }
+
+  .osCardHeading {
+    font-size: 1.35rem;
+  }
+
+  .osCardTagline {
+    font-size: 0.76rem;
+  }
+
+  .osCardDescription {
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .osVisualStage {
+    padding: 16px 10px;
+    margin-bottom: 16px;
+    border-radius: 14px;
+  }
+
+  .osTvDisplayImage {
+    max-width: 100%;
+  }
+
+  .osVisualFeatureTags {
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .osVisualTag {
+    font-size: 0.68rem;
+    padding: 3px 8px;
+  }
+
+  .osFeatureGrid {
+    grid-template-columns: 1fr !important;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .osFeatureTile {
+    padding: 10px 12px;
+    gap: 10px;
+    border-radius: 10px;
+  }
+
+  .osFeatureIcon {
+    font-size: 1.15rem;
+  }
+
+  .osFeatureTileTitle {
+    font-size: 0.82rem;
+  }
+
+  .osFeatureTileDesc {
+    font-size: 0.74rem;
+    line-height: 1.4;
+  }
+
+  .osSizesContainer {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .osSizesPillsRow {
+    gap: 6px;
+  }
+
+  .osSizePricePillWebos, .osSizePricePillAndroid {
+    font-size: 0.72rem;
+    padding: 4px 8px;
+  }
+
+  .osAndroidCtaBtn, .osWebosCtaBtn {
+    padding: 12px 16px;
+    font-size: 0.8rem;
+  }
+
+  .osComparisonWrapper {
+    padding: 18px 12px;
+    border-radius: 16px;
+  }
+
+  .osComparisonTitle {
+    font-size: 1.25rem;
+  }
+
+  .osComparisonSubtitle {
+    font-size: 0.82rem;
+  }
+
+  .osComparisonTable th, .osComparisonTable td {
+    padding: 10px 12px;
+    font-size: 0.82rem;
   }
 }

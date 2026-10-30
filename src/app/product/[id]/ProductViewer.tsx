@@ -321,7 +321,12 @@ export default function ProductViewer({
           </div>
 
           <h1 className={styles.title}>
-            {product.title} - {selectedVariant?.name}
+            {product.title}
+            {selectedVariant?.name && (
+              <span className={styles.titleVariantHighlight}>
+                {' '}• {selectedVariant.name.replace(/\s*\([^)]*\)/g, '').trim()}
+              </span>
+            )}
           </h1>
           <p className={styles.description}>{product.description}</p>
           
@@ -351,10 +356,14 @@ export default function ProductViewer({
 
           {/* Model Size Selection Pills */}
           <div className={styles.variantsSection}>
-            <h3 className={styles.sectionTitle}>SELECT MODEL SIZE</h3>
+            <div className={styles.sectionTitleRow}>
+              <h3 className={styles.sectionTitle}>SELECT MODEL SIZE</h3>
+              <span className={styles.sizeGuideHint}>Tap to view size details</span>
+            </div>
             <div className={styles.variantsPillGrid}>
               {product.variants.map((variant: any) => {
                 const isSelected = selectedVariantId === variant.id
+                const cleanSizeName = variant.name.replace(/\s*\([^)]*\)/g, '').trim() || variant.name
                 return (
                   <button 
                     key={variant.id} 
@@ -370,7 +379,7 @@ export default function ProductViewer({
                       }
                     }}
                   >
-                    <span className={styles.variantSizeText}>{variant.name}</span>
+                    <span className={styles.variantSizeText}>{cleanSizeName}</span>
                     <span className={`${styles.variantPriceText} ${variant.isOnSale ? styles.variantPriceSale : ''}`}>
                       ₹{Math.round(variant.price).toLocaleString('en-IN')}
                     </span>
@@ -380,7 +389,7 @@ export default function ProductViewer({
             </div>
           </div>
           
-          <div style={{ margin: '32px 0 20px 0' }}>
+          <div style={{ margin: '28px 0 20px 0' }}>
             <AddToCartButton 
               variantId={selectedVariant?.id} 
               productId={product.id} 
@@ -395,22 +404,22 @@ export default function ProductViewer({
             <div className={styles.trustBadgeItem}>
               <div className={styles.trustBadgeIcon}>🛡️</div>
               <div className={styles.trustBadgeText}>
-                <strong>1 Year Warranty + 2nd Year Labour Free</strong>
-                <span>1-Year comprehensive warranty on manufacturing defects + 2nd-year free labour service (parts charged at cost).</span>
+                <strong>1-Year Full Warranty</strong>
+                <span>+ 2nd Year Free Labour support</span>
               </div>
             </div>
             <div className={styles.trustBadgeItem}>
               <div className={styles.trustBadgeIcon}>🔄</div>
               <div className={styles.trustBadgeText}>
-                <strong>15 Days Return Guarantee</strong>
-                <span>15-day return window for complete peace of mind.</span>
+                <strong>15-Day Return Policy</strong>
+                <span>100% Replacement & return guarantee</span>
               </div>
             </div>
             <div className={styles.trustBadgeItem}>
               <div className={styles.trustBadgeIcon}>🚚</div>
               <div className={styles.trustBadgeText}>
-                <strong>Direct Manufacturer Support</strong>
-                <span>Direct service assistance & fast dispatch across India.</span>
+                <strong>Direct Brand Support</strong>
+                <span>Fast dispatch & factory direct engineers</span>
               </div>
             </div>
           </div>

@@ -81,23 +81,31 @@ export default function PayUEmiWidget({ price }: PayUEmiWidgetProps) {
   if (!price || price <= 0) return null
 
   return (
-    <div style={{ margin: '20px 0', minHeight: '60px' }}>
+    <div style={{ margin: '16px 0', minHeight: isEmpty ? 'auto' : '40px' }}>
       {/* Official PayU Widget Container (ID must be 'payuWidget') */}
-      <div id="payuWidget" style={{ width: '100%', minHeight: '60px' }}></div>
+      <div id="payuWidget" style={{ width: '100%' }}></div>
 
-      {/* Notice shown ONLY if PayU SDK is empty due to unactivated Merchant Key */}
+      {/* Sleek customer-facing financing badge if PayU iframe is pending or not injected */}
       {isEmpty && (
         <div style={{
-          background: 'rgba(37, 99, 235, 0.06)',
-          border: '1px border-dashed rgba(6, 182, 212, 0.3)',
+          background: 'linear-gradient(135deg, rgba(2, 132, 199, 0.08) 0%, rgba(37, 99, 235, 0.04) 100%)',
+          border: '1px solid rgba(56, 189, 248, 0.25)',
           borderRadius: '12px',
-          padding: '12px 16px',
-          fontSize: '0.8rem',
-          color: 'var(--text-secondary, #94a3b8)',
-          marginTop: '8px'
+          padding: '10px 14px',
+          fontSize: '0.84rem',
+          color: 'var(--text-primary)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          flexWrap: 'wrap'
         }}>
-          💳 <strong>PayU EMI & Offers:</strong> PayU Affordability Widget is initialized for Merchant Key <code>{merchantKey}</code>. 
-          <em>(If widget does not render, contact your PayU KAM to enable the Affordability feature on your PayU account).</em>
+          <span style={{ fontSize: '1.1rem' }}>💳</span>
+          <div>
+            <strong>Easy EMI from ₹{Math.round(price / 12).toLocaleString('en-IN')}/mo</strong>
+            <span style={{ color: 'var(--text-secondary)', marginLeft: '6px', fontSize: '0.78rem' }}>
+              • No Cost & Standard EMI options at checkout
+            </span>
+          </div>
         </div>
       )}
     </div>

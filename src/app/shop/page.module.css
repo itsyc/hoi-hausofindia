@@ -769,3 +769,140 @@
   color: var(--text-secondary);
   margin-bottom: 24px;
 }
+
+/* -------------------------------------------------------------
+   MOBILE RESPONSIVENESS FOR SHOP
+   ------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .variantGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .stickyFilterBar {
+    top: 70px;
+    padding: 8px 0;
+    margin-bottom: 24px;
+  }
+
+  .filterBarContainer {
+    gap: 8px;
+  }
+
+  .filterControlsGroup {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .seriesTabs {
+    overflow-x: auto;
+    flex-shrink: 0;
+  }
+
+  .filterMetaGroup {
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 0;
+    padding-top: 4px;
+  }
+}
+
+@media (max-width: 640px) {
+  .shopHero {
+    padding: 36px 0 24px 0;
+    margin-bottom: 28px;
+  }
+
+  .heroTag {
+    font-size: 0.72rem;
+    padding: 4px 14px;
+    margin-bottom: 14px;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.8rem, 6vw, 2.3rem);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .heroSubtitle {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .seriesSection {
+    margin-bottom: 40px;
+  }
+
+  .seriesBanner {
+    padding: 18px 14px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+
+  .seriesHeaderTitle {
+    font-size: 1.35rem;
+  }
+
+  .seriesHeaderDesc {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .variantGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .variantCard {
+    padding: 16px 14px;
+    border-radius: 16px;
+  }
+
+  .imageContainer {
+    height: 170px;
+  }
+
+  .productImg {
+    max-height: 140px;
+  }
+
+  .modelTitle {
+    font-size: 1.15rem;
+    margin-bottom: 2px;
+  }
+
+  .modelSeries {
+    font-size: 0.78rem;
+    margin-bottom: 10px;
+  }
+
+  .featureList {
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .featurePill {
+    font-size: 0.72rem;
+    padding: 3px 8px;
+  }
+
+  .price {
+    font-size: 1.35rem;
+  }
+
+  .actionButtons {
+    gap: 8px;
+  }
+
+  .viewDetailsBtn, .buyNowBtn {
+    padding: 10px 14px;
+    font-size: 0.78rem;
+  }
+}
