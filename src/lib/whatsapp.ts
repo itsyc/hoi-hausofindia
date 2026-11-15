@@ -149,7 +149,7 @@ export async function sendAdminOrderNotification(details: {
   state: string;
   pincode: string;
 }): Promise<void> {
-  const adminPhonesEnv = sanitizeEnv(process.env.ADMIN_WHATSAPP_PHONE, '9929247772');
+  const adminPhonesEnv = sanitizeEnv(process.env.ADMIN_WHATSAPP_PHONE, '9929247772,7339941812');
   const adminPhones = adminPhonesEnv
     .split(',')
     .map(p => p.trim())
