@@ -1,9 +1,10 @@
 /**
- * WhatsApp Helper Service powered by OpenWA Server (http://localhost:2785)
+ * WhatsApp Helper Service powered by OpenWA Gateway on Raspberry Pi
  */
 
 const OPENWA_SERVER_URL = process.env.OPENWA_SERVER_URL || 'http://localhost:2785';
-const OPENWA_API_KEY = process.env.OPENWA_API_KEY || '';
+const OPENWA_API_KEY = process.env.OPENWA_API_KEY || 'hoi_openwa_secure_2026';
+const OPENWA_SESSION_ID = process.env.OPENWA_SESSION_ID || 'default';
 
 /**
  * Format phone number to standard WhatsApp Chat ID (e.g. 919876543210@c.us)
@@ -26,12 +27,14 @@ export function formatWhatsAppId(phone: string): string {
 export async function sendWhatsAppMessage(phone: string, message: string): Promise<boolean> {
   try {
     const chatId = formatWhatsAppId(phone);
+    const cleanBaseUrl = OPENWA_SERVER_URL.replace(/\/+$/, '');
+    const endpoint = `${cleanBaseUrl}/api/sessions/${OPENWA_SESSION_ID}/messages/send-text`;
     
-    const response = await fetch(`${OPENWA_SERVER_URL}/api/messages/sendText`, {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...(OPENWA_API_KEY ? { 'Authorization': `Bearer ${OPENWA_API_KEY}` } : {})
+        'X-Api-Key': OPENWA_API_KEY,
       },
       body: JSON.stringify({
         chatId,
@@ -46,11 +49,61 @@ export async function sendWhatsAppMessage(phone: string, message: string): Promi
     }
 
     const data = await response.json();
-    console.log(`[OpenWA Success] Message sent to ${chatId}:`, data.success || 'OK');
+    console.log(`[OpenWA Success] Message sent to ${chatId}:`, data.id || 'OK');
     return true;
   } catch (error) {
-    console.error('[OpenWA Connection Failed]: Is OpenWA server running on port 2785?', error);
-    // Return false instead of throwing so application flow isn't broken
+    console.error('[OpenWA Connection Failed]: Is OpenWA server running and reachable?', error);
     return false;
   }
+}
+
+/**
+ * Helper: Send Order Confirmation WhatsApp
+ */
+export async function sendOrderConfirmationWhatsApp(phone: string, details: {
+  orderId: string;
+  customerName?: string;
+  totalAmount: number | string;
+  itemSummary?: string;
+}): Promise<boolean> {
+  const greeting = details.customerName ? `Dear ${details.customerName},` : `Hello,`;
+  const message = [
+    `🎉 *Order Confirmed - Haus of India*`,
+    ``,
+    `${greeting}`,
+    `Thank you for your purchase! We have received your order *#${details.orderId}*.`,
+    ``,
+    `💰 *Total Amount:* ₹${details.totalAmount}`,
+    details.itemSummary ? `🛍️ *Items:* ${details.itemSummary}` : '',
+    ``,
+    `We are preparing your package and will notify you as soon as it is dispatched!`,
+    ``,
+    `Need help? Reply to this message.`
+  ].filter(Boolean).join('\n');
+
+  return sendWhatsAppMessage(phone, message);
+}
+
+/**
+ * Helper: Send Shipping & Tracking WhatsApp
+ */
+export async function sendShippingUpdateWhatsApp(phone: string, details: {
+  orderId: string;
+  courierName?: string;
+  trackingNumber: string;
+  trackingUrl?: string;
+}): Promise<boolean> {
+  const courier = details.courierName ? ` via *${details.courierName}*` : '';
+  const message = [
+    `📦 *Order Dispatched - Haus of India*`,
+    ``,
+    `Great news! Your order *#${details.orderId}* has been shipped${courier}.`,
+    ``,
+    `🔍 *Tracking Number (AWB):* ${details.trackingNumber}`,
+    details.trackingUrl ? `🌐 *Track Online:* ${details.trackingUrl}` : '',
+    ``,
+    `Thank you for shopping with us!`
+  ].filter(Boolean).join('\n');
+
+  return sendWhatsAppMessage(phone, message);
 }
