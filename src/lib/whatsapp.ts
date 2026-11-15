@@ -2,9 +2,14 @@
  * WhatsApp Helper Service powered by OpenWA Gateway on Raspberry Pi
  */
 
-const OPENWA_SERVER_URL = process.env.OPENWA_SERVER_URL || 'https://probably-submitting-metadata-bathrooms.trycloudflare.com';
-const OPENWA_API_KEY = process.env.OPENWA_API_KEY || 'owa_k1_3ddf3d2a10037d7a3ec4be29e97e20a63fe60dc9d91ae0025644dadcf853009e';
-const CONFIGURED_SESSION_ID = process.env.OPENWA_SESSION_ID || 'fccd62da-32e3-4779-bd48-ca4958625965';
+function sanitizeEnv(val: string | undefined, defaultVal: string): string {
+  if (!val) return defaultVal;
+  return val.trim().replace(/^["']+|["']+$/g, '').trim();
+}
+
+const OPENWA_SERVER_URL = sanitizeEnv(process.env.OPENWA_SERVER_URL, 'https://probably-submitting-metadata-bathrooms.trycloudflare.com');
+const OPENWA_API_KEY = sanitizeEnv(process.env.OPENWA_API_KEY, 'owa_k1_3ddf3d2a10037d7a3ec4be29e97e20a63fe60dc9d91ae0025644dadcf853009e');
+const CONFIGURED_SESSION_ID = sanitizeEnv(process.env.OPENWA_SESSION_ID, 'fccd62da-32e3-4779-bd48-ca4958625965');
 
 let cachedSessionId: string | null = null;
 
@@ -28,12 +33,12 @@ export function formatWhatsAppId(phone: string): string {
  */
 async function resolveSessionId(baseUrl: string, apiKey: string): Promise<string> {
   // If we already have a confirmed working session ID, use it
-  if (cachedSessionId) return cachedSessionId;
+  if (cachedSessionId) return sanitizeEnv(cachedSessionId, 'fccd62da-32e3-4779-bd48-ca4958625965');
 
   // If a valid UUID was provided in env, use that as primary candidate
   if (CONFIGURED_SESSION_ID && CONFIGURED_SESSION_ID !== 'default') {
-    cachedSessionId = CONFIGURED_SESSION_ID;
-    return CONFIGURED_SESSION_ID;
+    cachedSessionId = sanitizeEnv(CONFIGURED_SESSION_ID, 'fccd62da-32e3-4779-bd48-ca4958625965');
+    return cachedSessionId;
   }
 
   // Otherwise query OpenWA for the active ready session
@@ -46,8 +51,8 @@ async function resolveSessionId(baseUrl: string, apiKey: string): Promise<string
       const list = await res.json();
       const readySession = list.find((s: any) => s.status === 'ready') || list[0];
       if (readySession?.id) {
-        cachedSessionId = readySession.id;
-        return readySession.id;
+        cachedSessionId = sanitizeEnv(readySession.id, 'fccd62da-32e3-4779-bd48-ca4958625965');
+        return cachedSessionId;
       }
     }
   } catch (err) {
@@ -63,8 +68,9 @@ async function resolveSessionId(baseUrl: string, apiKey: string): Promise<string
 export async function sendWhatsAppMessage(phone: string, message: string): Promise<boolean> {
   try {
     const chatId = formatWhatsAppId(phone);
-    const cleanBaseUrl = OPENWA_SERVER_URL.replace(/\/+$/, '');
-    const sessionId = await resolveSessionId(cleanBaseUrl, OPENWA_API_KEY);
+    const cleanBaseUrl = sanitizeEnv(OPENWA_SERVER_URL, 'https://probably-submitting-metadata-bathrooms.trycloudflare.com').replace(/\/+$/, '');
+    const cleanApiKey = sanitizeEnv(OPENWA_API_KEY, 'owa_k1_3ddf3d2a10037d7a3ec4be29e97e20a63fe60dc9d91ae0025644dadcf853009e');
+    const sessionId = sanitizeEnv(await resolveSessionId(cleanBaseUrl, cleanApiKey), 'fccd62da-32e3-4779-bd48-ca4958625965');
     const endpoint = `${cleanBaseUrl}/api/sessions/${sessionId}/messages/send-text`;
     
     console.log(`[OpenWA] Sending message to ${chatId} via session ${sessionId}...`);
@@ -73,7 +79,7 @@ export async function sendWhatsAppMessage(phone: string, message: string): Promi
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Api-Key': OPENWA_API_KEY,
+        'X-Api-Key': cleanApiKey,
       },
       body: JSON.stringify({
         chatId,
