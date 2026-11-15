@@ -7,7 +7,7 @@ function sanitizeEnv(val: string | undefined, defaultVal: string): string {
   return val.trim().replace(/^["']+|["']+$/g, '').trim();
 }
 
-const OPENWA_SERVER_URL = sanitizeEnv(process.env.OPENWA_SERVER_URL, 'https://probably-submitting-metadata-bathrooms.trycloudflare.com');
+const OPENWA_SERVER_URL = sanitizeEnv(process.env.OPENWA_SERVER_URL, 'https://washstand-property-display.ngrok-free.dev');
 const OPENWA_API_KEY = sanitizeEnv(process.env.OPENWA_API_KEY, 'owa_k1_3ddf3d2a10037d7a3ec4be29e97e20a63fe60dc9d91ae0025644dadcf853009e');
 const CONFIGURED_SESSION_ID = sanitizeEnv(process.env.OPENWA_SESSION_ID, 'fccd62da-32e3-4779-bd48-ca4958625965');
 
@@ -68,7 +68,7 @@ async function resolveSessionId(baseUrl: string, apiKey: string): Promise<string
 export async function sendWhatsAppMessage(phone: string, message: string): Promise<boolean> {
   try {
     const chatId = formatWhatsAppId(phone);
-    const cleanBaseUrl = sanitizeEnv(OPENWA_SERVER_URL, 'https://probably-submitting-metadata-bathrooms.trycloudflare.com').replace(/\/+$/, '');
+    const cleanBaseUrl = sanitizeEnv(OPENWA_SERVER_URL, 'https://washstand-property-display.ngrok-free.dev').replace(/\/+$/, '');
     const cleanApiKey = sanitizeEnv(OPENWA_API_KEY, 'owa_k1_3ddf3d2a10037d7a3ec4be29e97e20a63fe60dc9d91ae0025644dadcf853009e');
     const sessionId = sanitizeEnv(await resolveSessionId(cleanBaseUrl, cleanApiKey), 'fccd62da-32e3-4779-bd48-ca4958625965');
     const endpoint = `${cleanBaseUrl}/api/sessions/${sessionId}/messages/send-text`;
