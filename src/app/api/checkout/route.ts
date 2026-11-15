@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
-import { sendWhatsAppMessage } from "@/lib/whatsapp"
+import { sendWhatsAppMessage, sendAdminOrderNotification } from "@/lib/whatsapp"
 
 export async function POST(req: Request) {
   try {
@@ -125,6 +125,26 @@ export async function POST(req: Request) {
       `Track your order anytime here:\n${process.env.NEXT_PUBLIC_BASE_URL || 'https://hausofindia.com'}/track-order?orderId=${order.orderNumber}`;
 
     sendWhatsAppMessage(order.customerPhone, orderConfirmationMessage).catch(console.error);
+
+    // Notify Store Admin on WhatsApp
+    sendAdminOrderNotification({
+      orderNumber: order.orderNumber,
+      customerName: order.customerName,
+      customerPhone: order.customerPhone,
+      customerEmail: order.customerEmail,
+      totalAmount: order.totalAmount,
+      paymentMethod: order.paymentMethod,
+      items: items.map((i: any) => ({
+        title: i.title,
+        quantity: i.quantity,
+        size: i.size,
+        price: i.price
+      })),
+      shippingAddress: order.shippingAddress,
+      city: order.city,
+      state: order.state,
+      pincode: order.pincode
+    }).catch(console.error);
 
     return NextResponse.json({ 
       success: true,

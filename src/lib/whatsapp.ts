@@ -134,6 +134,64 @@ export async function sendOrderConfirmationWhatsApp(phone: string, details: {
 }
 
 /**
+ * Helper: Send Admin Order Alert to Store Owner WhatsApp
+ */
+export async function sendAdminOrderNotification(details: {
+  orderNumber: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail?: string | null;
+  totalAmount: number;
+  paymentMethod: string;
+  items?: Array<{ title: string; quantity: number; size?: string | null; price: number }>;
+  shippingAddress: string;
+  city: string;
+  state: string;
+  pincode: string;
+}): Promise<void> {
+  const adminPhonesEnv = sanitizeEnv(process.env.ADMIN_WHATSAPP_PHONE, '9929247772');
+  const adminPhones = adminPhonesEnv
+    .split(',')
+    .map(p => p.trim())
+    .filter(Boolean);
+
+  if (adminPhones.length === 0) return;
+
+  const itemLines = details.items && details.items.length > 0
+    ? details.items.map(i => `• ${i.quantity}x ${i.title}${i.size ? ` (${i.size})` : ''} - ₹${(i.price * i.quantity).toLocaleString('en-IN')}`).join('\n')
+    : 'No item details';
+
+  const adminMsg = [
+    `🚨 *NEW ORDER RECEIVED!*`,
+    ``,
+    `📋 *Order ID:* #${details.orderNumber}`,
+    `💰 *Total Amount:* ₹${details.totalAmount.toLocaleString('en-IN')} (${details.paymentMethod})`,
+    ``,
+    `👤 *Customer:*`,
+    `• Name: ${details.customerName}`,
+    `• Phone: ${details.customerPhone}`,
+    details.customerEmail ? `• Email: ${details.customerEmail}` : '',
+    ``,
+    `🛍️ *Items:*`,
+    itemLines,
+    ``,
+    `📍 *Delivery Address:*`,
+    `${details.shippingAddress}, ${details.city}, ${details.state} - ${details.pincode}`,
+    ``,
+    `🔗 *Admin Portal:*`,
+    `${process.env.NEXT_PUBLIC_BASE_URL || 'https://hausofindia.com'}/admin/orders`
+  ].filter(Boolean).join('\n');
+
+  for (const phone of adminPhones) {
+    try {
+      await sendWhatsAppMessage(phone, adminMsg);
+    } catch (err) {
+      console.error(`[Admin WhatsApp Alert Failed for ${phone}]:`, err);
+    }
+  }
+}
+
+/**
  * Helper: Send Shipping & Tracking WhatsApp
  */
 export async function sendShippingUpdateWhatsApp(phone: string, details: {
